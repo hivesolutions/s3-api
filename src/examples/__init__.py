@@ -37,5 +37,5 @@ __license__ = "Apache License, Version 2.0"
 from . import app
 from . import base
 
-from .app import AliyunApp
+from .app import S3App
 from .base import get_api
