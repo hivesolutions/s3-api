@@ -85,11 +85,10 @@ class API(
     ):
         sign = kwargs.pop("sign", False)
         if sign and self.access_key and self.secret:
-            headers["x-amz-content-sha256"] = self._content_sha256(data = data)
+            headers["X-Amz-Content-Sha256"] = self._content_sha256(data = data)
             headers["Content-Type"] = self._content_type()
-            headers["Host"] = self._host()
-            #@todo try this with X-Amz-Date
-            headers["x-amz-date"] = self._date()
+            headers["Host"] = self._host(url)
+            headers["X-Amz-Date"] = self._date()
             headers["Authorization"] = self._signature(
                 method,
                 url,
@@ -104,16 +103,20 @@ class API(
     def _content_type(self, data = None):
         return "text/plain"
 
-    def _host(self, data = None):
-        return appier.legacy.urlparse(self.base_url).hostname
+    def _host(self, url):
+        return appier.legacy.urlparse(url).hostname
 
     def _date(self):
         date = datetime.datetime.utcnow()
         return date.strftime("%Y%m%dT%H%M%SZ")
 
-    def _signature(self, method, url, data = None, headers = None, resource = None):
-        date = headers["x-amz-date"]
-        content_sha256 = headers["x-amz-content-sha256"]
+    def _signature(self, method, url, data = None, headers = None, region = None):
+        region = region or self.region
+
+        date = headers["X-Amz-Date"]
+        content_sha256 = headers["X-Amz-Content-Sha256"]
+
+        day_s = date[:8]
 
         url_parse = appier.legacy.urlparse(url)
         path = url_parse.path or "/"
@@ -124,7 +127,8 @@ class API(
 
         for key in sorted(appier.legacy.keys(headers)):
             value = headers[key]
-            key, value = key.lower(), value.lower()
+            key = key.lower()
+            value = value.strip()
             headers_l.append("%s:%s" % (key, value))
             headers_n.append(key)
 
@@ -143,35 +147,28 @@ class API(
         canonical_request_sha256 = hashlib.sha256(canonical_request)
         canonical_request_sha256 = canonical_request_sha256.hexdigest()
 
-        now = datetime.datetime.utcnow()
-        day_s = now.strftime("%Y%m%d")
-
-        scope = "%s/%s/s3/aws4_request" % (day_s, self.region)
+        scope = "%s/%s/s3/aws4_request" % (day_s, region)
+        credential = "%s/%s" % (self.access_key, scope)
 
         base = "AWS4-HMAC-SHA256\n%s\n%s\n%s" % (
             date,
             scope,
             canonical_request_sha256
         )
-
         base = appier.legacy.bytes(base, force = True)
 
-        secret = self._secret()
-
+        secret = self._secret(day_s, region = region)
         signature = hmac.new(secret, base, hashlib.sha256).hexdigest()
-
-        credential = "%s/%s" % (self.access_key, scope)
 
         return "AWS4-HMAC-SHA256 Credential=%s,SignedHeaders=%s,Signature=%s" % (
             credential, headers_n, signature
         )
 
-    def _secret(self):
-        now = datetime.datetime.utcnow()
-        day_s = now.strftime("%Y%m%d")
+    def _secret(self, day_s, region = None):
+        region = region or self.region
 
         secret = appier.legacy.bytes("AWS4" + self.secret, force = True)
-        values = (day_s, self.region, "s3", "aws4_request")
+        values = (day_s, region, "s3", "aws4_request")
 
         for value in values:
             value = appier.legacy.bytes(value, force = True)
