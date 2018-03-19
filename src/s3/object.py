@@ -44,8 +44,7 @@ class ObjectAPI(object):
         contents = self.put(
             url,
             data = data,
-            sign = True,
-            resource = "/%s/%s" % (bucket, name)
+            sign = True
         )
         return contents
 

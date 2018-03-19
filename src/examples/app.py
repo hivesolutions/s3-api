@@ -39,7 +39,7 @@ __license__ = "Apache License, Version 2.0"
 
 import appier
 
-import base
+from . import base
 
 class S3App(appier.WebApp):
 
@@ -59,6 +59,18 @@ class S3App(appier.WebApp):
         api = self.get_api()
         buckets = api.list_buckets()
         return buckets
+
+    @appier.route("/buckets/<str:bucket>/create/<str:message>", "GET")
+    def create_object(self, bucket, message):
+        name = self.field("name", "hello")
+        api = self.get_api()
+        message = appier.legacy.bytes(
+            message,
+            encoding = "utf-8",
+            force = True
+        )
+        contents = api.create_object(bucket, name, message)
+        return contents
 
     def get_api(self):
         api = base.get_api()
