@@ -38,6 +38,6 @@ from . import base
 from . import bucket
 from . import object
 
-from .base import BASE_URL, API
+from .base import BASE_URL, REGION, API
 from .bucket import BucketAPI
 from .object import ObjectAPI

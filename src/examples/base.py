@@ -43,7 +43,8 @@ import s3
 
 def get_api():
     return s3.API(
+        base_url = appier.conf("S3_BASE_URL", s3.BASE_URL),
         access_key = appier.conf("S3_ACCESS_KEY"),
         secret = appier.conf("S3_SECRET"),
-        region = appier.conf("S3_REGION")
+        region = appier.conf("S3_REGION", s3.REGION)
     )

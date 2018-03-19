@@ -50,6 +50,10 @@ BASE_URL = "https://s3.amazonaws.com/"
 """ The default base URL to be used when no other
 base URL value is provided to the constructor """
 
+REGION = "us-east-1"
+""" The default region to be used when no region value
+is provided, ensure compatibility """
+
 class API(
     appier.API,
     bucket.BucketAPI,
