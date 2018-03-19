@@ -7,6 +7,7 @@ Simple Python based API client for Amazon S3.
 * `S3_BASE_URL` (`str`) - The base URL to be used for the API calls (defaults to `https://s3.amazonaws.com/`)
 * `S3_ACCESS_KEY` (`str`) - Secret key to be used to authenticate API request (defaults to `None`)
 * `S3_SECRET` (`str`) - String value to be kept secret and used in the request signing process as the secret key (defaults to `None`)
+* `S3_REGION` (`str`) - The name of the region where the request are going to be sent by default (defaults to `None`)
 
 ## License
 
