@@ -1,0 +1,37 @@
+sudo: false
+dist: trusty
+language: python
+python:
+  - "2.6"
+  - "2.7"
+  - "3.2"
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+  - "nightly"
+  - "pypy-5.3.1"
+  - "pypy-5.4.1"
+  - "pypy-5.6.0"
+  - "pypy-5.7.1"
+  - "pypy3-2.4.0"
+  - "pypy2.7-5.8.0"
+  - "pypy3.5-5.8.0"
+before_install:
+  - if [[ $TRAVIS_PYTHON_VERSION != "3.2" ]] && [[ $TRAVIS_PYTHON_VERSION != "pypy3-2.4.0" ]]; then pip install --upgrade pip setuptools; fi
+install:
+  - pip install "pkginfo<1.3"
+  - pip install -r requirements.txt
+  - pip install coveralls
+  - pip install twine
+script: if [[ $TRAVIS_PYTHON_VERSION != "3.2" ]]; then coverage run --source=s3 setup.py test; else python setup.py test; fi
+after_success: if [[ $TRAVIS_PYTHON_VERSION != "3.2" ]]; then coveralls; fi
+deploy:
+  provider: pypi
+  user: joamag
+  password:
+    secure: cw/PZk3h0s88EeFNYTlFvTq2opdD778A11Ho+KEX14BnNRoKBw25yWdsmBqmUqJE+hl25NH3ItGK95jCGQ4HvMwkxthJTrgbfOsAK9+d5PRVl3YsW+oEr1olAXWSoJbhNTu6ESiPZYxLT/hOmWmATiKmc+ncBHTFl8VIfo9nR0LqHNXGq1wrnX2M9FmKkesVBfRjVdYw8jfHHkUKP+Pe0alvLjzvyuYbBQ0eWIdha6hpmje/IXOLT5X3eipJNXEX7A/DOy+4U92QMxQ07ajcN3JjmcwasP64kQZ0kSxRDclO8qnv1N++lV0JFefc5b52z8r8+AJ6cKHOXeS/rKG/6qo18Pr75jLmxuD1WvfQ+PScHEOUeh8gkKttxD/UTjBkdfHmomXk7BzmtRB0cPKD6d4cbRmWvsF31JljPBBWVw+RoxGceDq3Yp4MUdTSbHKNfDCmt3xv+UtR9sSKngpX38ujgkm3SuStnCmeYmced8DBVb9qU3yU7CbFvPoRgHdyiLMmn2adjf7rgSsxPXgzVPdTEtG5FINMKvzcTZA61KMbZ6WAZvUcw7xJhJ8135lhONWz4rtmLhE2TZonCFsyPKm6ePuukDzDjb82l4loK4W/yU9bYHGGzQ5g3ISblS0cC1LVn+u5fylALMc8T9foS6zygSdhUz6ddcNZg07OCfs=
+  distributions: sdist bdist_wheel
+  on:
+    tags: true
+    python: "2.7"
