@@ -1,4 +1,4 @@
-# Amazon S3 API
+# [Amazon S3 API](http://s3-api.hive.pt)
 
 Simple Python based API client for Amazon S3.
 
