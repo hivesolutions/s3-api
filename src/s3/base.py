@@ -110,7 +110,7 @@ class API(
         date = datetime.datetime.utcnow()
         return date.strftime("%Y%m%dT%H%M%SZ")
 
-    def _signature(self, method, url, data = None, headers = None, region = None):
+    def _signature(self, method, url, data = None, headers = None, region = None, service = "s3"):
         region = region or self.region
 
         date = headers["X-Amz-Date"]
@@ -157,18 +157,18 @@ class API(
         )
         base = appier.legacy.bytes(base, force = True)
 
-        secret = self._secret(day_s, region = region)
+        secret = self._secret(day_s, region = region, service = service)
         signature = hmac.new(secret, base, hashlib.sha256).hexdigest()
 
         return "AWS4-HMAC-SHA256 Credential=%s,SignedHeaders=%s,Signature=%s" % (
             credential, headers_n, signature
         )
 
-    def _secret(self, day_s, region = None):
+    def _secret(self, day_s, region = None, service = "s3"):
         region = region or self.region
 
         secret = appier.legacy.bytes("AWS4" + self.secret, force = True)
-        values = (day_s, region, "s3", "aws4_request")
+        values = (day_s, region, service, "aws4_request")
 
         for value in values:
             value = appier.legacy.bytes(value, force = True)
