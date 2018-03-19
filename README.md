@@ -1,2 +1,3 @@
-# s3_api
-Simple Python based API client for Amazon S3
+# (Amazon) S3 API
+
+Simple Python based API client for Amazon S3.
