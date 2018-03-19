@@ -39,11 +39,10 @@ __license__ = "Apache License, Version 2.0"
 
 import appier
 
-import aliyun
+import s3
 
 def get_api():
-    return aliyun.API(
-        base_url = appier.conf("S3_BASE_URL"),
+    return s3.API(
         access_key = appier.conf("S3_ACCESS_KEY"),
         secret = appier.conf("S3_SECRET"),
         region = appier.conf("S3_REGION")
