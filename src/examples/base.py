@@ -37,22 +37,14 @@ __copyright__ = "Copyright (c) 2008-2018 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
-class BucketAPI(object):
+import appier
 
-    def list_buckets(
-        self,
-        prefix = None,
-        marker = None,
-        max_keys = None
-    ):
-        url = self.base_url
-        contents = self.get(
-            url,
-            params = {
-                "prefix": prefix,
-                "marker": marker,
-                "max-keys": max_keys
-            },
-            sign = True
-        )
-        return contents
+import aliyun
+
+def get_api():
+    return aliyun.API(
+        base_url = appier.conf("S3_BASE_URL"),
+        access_key = appier.conf("S3_ACCESS_KEY"),
+        secret = appier.conf("S3_SECRET"),
+        region = appier.conf("S3_REGION")
+    )

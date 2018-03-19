@@ -37,22 +37,35 @@ __copyright__ = "Copyright (c) 2008-2018 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
-class BucketAPI(object):
+import appier
 
-    def list_buckets(
-        self,
-        prefix = None,
-        marker = None,
-        max_keys = None
-    ):
-        url = self.base_url
-        contents = self.get(
-            url,
-            params = {
-                "prefix": prefix,
-                "marker": marker,
-                "max-keys": max_keys
-            },
-            sign = True
+import base
+
+class S3App(appier.WebApp):
+
+    def __init__(self, *args, **kwargs):
+        appier.WebApp.__init__(
+            self,
+            name = "s3",
+            *args, **kwargs
         )
-        return contents
+
+    @appier.route("/", "GET")
+    def index(self):
+        return self.buckets()
+
+    @appier.route("/buckets", "GET")
+    def buckets(self):
+        api = self.get_api()
+        buckets = api.list_buckets()
+        return buckets
+
+    def get_api(self):
+        api = base.get_api()
+        return api
+
+if __name__ == "__main__":
+    app = S3App()
+    app.serve()
+else:
+    __path__ = []

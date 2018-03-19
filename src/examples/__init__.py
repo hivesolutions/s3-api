@@ -19,9 +19,6 @@
 # You should have received a copy of the Apache License along with
 # Hive Amazon S3 API. If not, see <http://www.apache.org/licenses/>.
 
-__author__ = "João Magalhães <joamag@hive.pt>"
-""" The author(s) of the module """
-
 __version__ = "1.0.0"
 """ The version of the module """
 
@@ -37,22 +34,8 @@ __copyright__ = "Copyright (c) 2008-2018 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
-class BucketAPI(object):
+from . import app
+from . import base
 
-    def list_buckets(
-        self,
-        prefix = None,
-        marker = None,
-        max_keys = None
-    ):
-        url = self.base_url
-        contents = self.get(
-            url,
-            params = {
-                "prefix": prefix,
-                "marker": marker,
-                "max-keys": max_keys
-            },
-            sign = True
-        )
-        return contents
+from .app import AliyunApp
+from .base import get_api
