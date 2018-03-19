@@ -39,20 +39,7 @@ __license__ = "Apache License, Version 2.0"
 
 class BucketAPI(object):
 
-    def list_buckets(
-        self,
-        prefix = None,
-        marker = None,
-        max_keys = None
-    ):
+    def list_buckets(self):
         url = self.base_url
-        contents = self.get(
-            url,
-            params = {
-                "prefix": prefix,
-                "marker": marker,
-                "max-keys": max_keys
-            },
-            sign = True
-        )
+        contents = self.get(url, sign = True)
         return contents
