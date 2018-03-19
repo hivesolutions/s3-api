@@ -66,6 +66,9 @@ class API(
         self.access_key = kwargs.get("access_key", self.access_key)
         self.secret = kwargs.get("secret", self.secret)
         self.region = kwargs.get("region", self.region)
+        if self.region: self.base_url = self.base_url.replace(
+            "https://s3", "https://s3." + self.region
+        )
         self.bucket_url = self.base_url.replace("https://", "https://%s.")
 
     def build(
@@ -84,6 +87,7 @@ class API(
         if sign and self.access_key and self.secret:
             headers["x-amz-content-sha256"] = self._content_sha256(data = data)
             headers["Content-Type"] = self._content_type()
+            headers["Host"] = self._host()
             #@todo try this with X-Amz-Date
             headers["x-amz-date"] = self._date()
             headers["Authorization"] = self._signature(
@@ -99,6 +103,9 @@ class API(
 
     def _content_type(self, data = None):
         return "text/plain"
+
+    def _host(self, data = None):
+        return appier.legacy.urlparse(self.base_url).hostname
 
     def _date(self):
         date = datetime.datetime.utcnow()
