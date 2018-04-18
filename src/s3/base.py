@@ -96,7 +96,6 @@ class API(
             headers["Authorization"] = self._signature(
                 method,
                 url,
-                data = data,
                 headers = headers
             )
 
