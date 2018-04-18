@@ -37,6 +37,8 @@ __copyright__ = "Copyright (c) 2008-2018 Hive Solutions Lda."
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
+import os
+
 import appier
 
 from . import base
@@ -70,6 +72,15 @@ class S3App(appier.WebApp):
             force = True
         )
         contents = api.create_object(bucket, name, message)
+        return contents
+
+    @appier.route("/buckets/<str:bucket>/upload", "GET")
+    def upload_object(self, bucket):
+        api = self.get_api()
+        path = self.field("path", mandatory = True)
+        name = self.field("name", None)
+        name = name or os.path.basename(path)
+        contents = api.create_file_object(bucket, name, path)
         return contents
 
     def get_api(self):

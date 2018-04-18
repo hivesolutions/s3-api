@@ -88,8 +88,9 @@ class API(
         kwargs = None
     ):
         sign = kwargs.pop("sign", False)
+        conent_sha256 = kwargs.pop("sha256", None)
         if sign and self.access_key and self.secret:
-            headers["X-Amz-Content-Sha256"] = self._content_sha256(data = data)
+            headers["X-Amz-Content-Sha256"] = conent_sha256 or self._content_sha256(data = data)
             headers["Content-Type"] = self._content_type()
             headers["Host"] = self._host(url)
             headers["X-Amz-Date"] = self._date()
@@ -100,8 +101,12 @@ class API(
             )
 
     def _content_sha256(self, data = None):
-        content_sha256 = hashlib.sha256(data or b"")
-        return content_sha256.hexdigest()
+        data = data or b""
+        if appier.legacy.is_bytes(data): data = iter((len(data), data))
+        next(data)
+        sha256 = hashlib.sha256()
+        for chunk in data: sha256.update(chunk)
+        return sha256.hexdigest()
 
     def _content_type(self, data = None):
         return "text/plain"
