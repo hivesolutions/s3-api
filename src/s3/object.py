@@ -41,7 +41,15 @@ import appier
 
 class ObjectAPI(object):
 
-    def create_object(self, bucket, name, data, acl = None, sha256 = None):
+    def create_object(
+        self,
+        bucket,
+        name,
+        data,
+        content_type = None,
+        acl = None,
+        sha256 = None
+    ):
         url = self.bucket_url % bucket + "%s" % name
         headers = dict()
         if acl: headers["X-Amz-Acl"] = acl
@@ -50,6 +58,7 @@ class ObjectAPI(object):
             data = data,
             headers = headers,
             sign = True,
+            content_type = content_type,
             sha256 = sha256 or self._content_sha256(data = data)
         )
         return contents
@@ -57,11 +66,20 @@ class ObjectAPI(object):
     def build_url_object(self, bucket, name):
         return self.bucket_url % bucket + "%s" % name
 
-    def create_file_object(self, bucket, name, path, acl = None, sha256 = None):
+    def create_file_object(
+        self,
+        bucket,
+        name,
+        path,
+        content_type = None,
+        acl = None,
+        sha256 = None
+    ):
         return self.create_object(
             bucket,
             name,
             data = appier.file_g(path),
+            content_type = content_type,
             acl = acl,
             sha256 = sha256 or self._content_sha256(appier.file_g(path))
         )

@@ -88,11 +88,12 @@ class API(
         kwargs = None
     ):
         sign = kwargs.pop("sign", False)
+        content_type = kwargs.pop("content_type", None)
         content_sha256 = kwargs.pop("sha256", None)
         if sign and self.access_key and self.secret:
             headers["X-Amz-Content-Sha256"] = content_sha256 or\
                 self._content_sha256(data = data)
-            headers["Content-Type"] = self._content_type()
+            headers["Content-Type"] = content_type or self._content_type()
             headers["Host"] = self._host(url)
             headers["X-Amz-Date"] = self._date()
             headers["Authorization"] = self._signature(
