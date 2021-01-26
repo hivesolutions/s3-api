@@ -24,12 +24,3 @@ install:
   - pip install coveralls
 script: coverage run --source=s3 setup.py test
 after_success: coveralls
-deploy:
-  provider: pypi
-  user: joamag
-  password:
-    secure: MJBpG/n4lu69D62MfdAVLo6rXi7ar7/ToesKxwz8EMURWIM2IhpXXdSV6Rs6V59+sfn1nStay2qFIDqWhuLTzCaJfJzYH/zQiXJhplRBUHBOSi9ik+pIOVz2enkIGvjgqGQCUC1ik1gLTG1iw+alTesLuNETpKHMO4toi0ydF1B7W+WZN0nL7JnR7skbYiTWsUVmpD5gxKpCQgqK9iSROeGJdgTmQbobD844dP8NgyY61aQXyWZg+ZZQ/TdVXI8ymjl7jJUgXnvYfIkJVH1OJXuXynRI50SwHMLIAAstkBhTYUxD8k+Y563QeHeoLTdOgA2PksyngeihGN5iCVS0gkjGy0V31o3Mk3aUiqVr690aIbyyc7VOxqAsVWIdpnQ3oJNMxRf9YlMZ37Z8ki+0rsmYq+FTBGws00FihuzPWTjj7TLhvp8a6CRugBAXXaoWHw9PfQUwQMGxA69hUKvWvVKDLNlzsTGpL7u8g9oZ82TS6xNL25L5WkZbwkpmTJoBxhXQu9eLEx8Mfz38N+us4bfhLaUuBh/QN6XxTrBqix7BQk0/G+tAuOlhiP8lXrMlo1qBP9QPm2YHTo44EUpIZfcftRMw4bqZhKvgC+j8bW7sTPdFwyDi6w0WeRN63GXrvH9KwrWl1jVTGS/CnoHAV9N4VaWd6D6cxeWQqnD7AZ4=
-  distributions: sdist bdist_wheel
-  on:
-    tags: true
-    python: "2.7"
