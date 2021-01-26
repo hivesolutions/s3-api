@@ -42,7 +42,7 @@ import setuptools
 
 setuptools.setup(
     name = "s3_api",
-    version = "0.2.2",
+    version = "0.2.3",
     author = "Hive Solutions Lda.",
     author_email = "development@hive.pt",
     description = "Alibaba Cloud API Client",
