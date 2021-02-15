@@ -50,7 +50,7 @@ class ObjectAPI(object):
         acl = None,
         sha256 = None
     ):
-        url = self.bucket_url % bucket + "%s" % name
+        url = self.bucket_url % bucket + "%s" % appier.legacy.quote(name)
         headers = dict()
         if acl: headers["X-Amz-Acl"] = acl
         contents = self.put(
