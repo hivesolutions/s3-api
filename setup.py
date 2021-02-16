@@ -45,7 +45,7 @@ setuptools.setup(
     version = "0.2.4",
     author = "Hive Solutions Lda.",
     author_email = "development@hive.pt",
-    description = "Alibaba Cloud API Client",
+    description = "S3 API Client",
     license = "Apache License, Version 2.0",
     keywords = "s3 api",
     url = "http://s3-api.hive.pt",
