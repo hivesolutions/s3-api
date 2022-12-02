@@ -17,8 +17,8 @@ Amazon S3 API is currently licensed under the [Apache License, Version 2.0](http
 
 ## Build Automation
 
-[![Build Status](https://app.travis-ci.com/hivesolutions/s3_api.svg?branch=master)](https://travis-ci.com/github/hivesolutions/s3_api)
-[![Build Status GitHub](https://github.com/hivesolutions/s3_api/workflows/Main%20Workflow/badge.svg)](https://github.com/hivesolutions/s3_api/actions)
-[![Coverage Status](https://coveralls.io/repos/hivesolutions/s3_api/badge.svg?branch=master)](https://coveralls.io/r/hivesolutions/s3_api?branch=master)
-[![PyPi Status](https://img.shields.io/pypi/v/s3_api.svg)](https://pypi.python.org/pypi/s3_api)
+[![Build Status](https://app.travis-ci.com/hivesolutions/s3-api.svg?branch=master)](https://travis-ci.com/github/hivesolutions/s3-api)
+[![Build Status GitHub](https://github.com/hivesolutions/s3-api/workflows/Main%20Workflow/badge.svg)](https://github.com/hivesolutions/s3-api/actions)
+[![Coverage Status](https://coveralls.io/repos/hivesolutions/s3-api/badge.svg?branch=master)](https://coveralls.io/r/hivesolutions/s3-api?branch=master)
+[![PyPi Status](https://img.shields.io/pypi/v/s3-api.svg)](https://pypi.python.org/pypi/s3-api)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/)

@@ -5,4 +5,4 @@ session.shelve*
 
 /dist
 /build
-/src/s3_api.egg-info
+/src/s3-api.egg-info
