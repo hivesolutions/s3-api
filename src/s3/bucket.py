@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Hive Amazon S3 API
-# Copyright (c) 2008-2020 Hive Solutions Lda.
+# Copyright (c) 2008-2025 Hive Solutions Lda.
 #
 # This file is part of Hive Amazon S3 API.
 #
@@ -22,37 +22,20 @@
 __author__ = "João Magalhães <joamag@hive.pt>"
 """ The author(s) of the module """
 
-__version__ = "1.0.0"
-""" The version of the module """
-
-__revision__ = "$LastChangedRevision$"
-""" The revision number of the module """
-
-__date__ = "$LastChangedDate$"
-""" The last change date of the module """
-
-__copyright__ = "Copyright (c) 2008-2020 Hive Solutions Lda."
+__copyright__ = "Copyright (c) 2008-2025 Hive Solutions Lda."
 """ The copyright for the module """
 
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
 
+
 class BucketAPI(object):
 
-    def list_buckets(
-        self,
-        prefix = None,
-        marker = None,
-        max_keys = None
-    ):
+    def list_buckets(self, prefix=None, marker=None, max_keys=None):
         url = self.base_url
         contents = self.get(
             url,
-            params = {
-                "prefix": prefix,
-                "marker": marker,
-                "max-keys": max_keys
-            },
-            sign = True
+            params={"prefix": prefix, "marker": marker, "max-keys": max_keys},
+            sign=True,
         )
         return contents

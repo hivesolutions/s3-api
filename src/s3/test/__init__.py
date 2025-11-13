@@ -1,32 +1,26 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Hive Amazon S3 API
-# Copyright (c) 2008-2025 Hive Solutions Lda.
+# Hive Nexmo API
+# Copyright (c) 2008-2024 Hive Solutions Lda.
 #
-# This file is part of Hive Amazon S3 API.
+# This file is part of Hive Nexmo API.
 #
-# Hive Amazon S3 API is free software: you can redistribute it and/or modify
+# Hive Nexmo API is free software: you can redistribute it and/or modify
 # it under the terms of the Apache License as published by the Apache
 # Foundation, either version 2.0 of the License, or (at your option) any
 # later version.
 #
-# Hive Amazon S3 API is distributed in the hope that it will be useful,
+# Hive Nexmo API is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # Apache License for more details.
 #
 # You should have received a copy of the Apache License along with
-# Hive Amazon S3 API. If not, see <http://www.apache.org/licenses/>.
+# Hive Nexmo API. If not, see <http://www.apache.org/licenses/>.
 
 __copyright__ = "Copyright (c) 2008-2025 Hive Solutions Lda."
 """ The copyright for the module """
 
 __license__ = "Apache License, Version 2.0"
 """ The license for the module """
-
-from . import app
-from . import base
-
-from .app import S3App
-from .base import get_api
