@@ -42,6 +42,7 @@ setuptools.setup(
     url="http://s3-api.hive.pt",
     zip_safe=False,
     packages=["s3"],
+    test_suite="s3.test",
     package_dir={"": os.path.normpath("src")},
     install_requires=["appier"],
     classifiers=[
